@@ -1,34 +1,36 @@
 from http.server import BaseHTTPRequestHandler
 import json
-import os
 
 def handler(request):
-    """Simplified handler for testing"""
+    """Vercel serverless function handler"""
     try:
-        # Basic response to test the function
+        # Get query parameters
+        query = request.query
+        city = query.get('city', '')
+        country = query.get('country', '')
+
+        # Return test response
         return {
-            'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+            "statusCode": 200,
+            "headers": {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
             },
-            'body': json.dumps({
-                'status': 'success',
-                'message': 'API is working',
-                'query': {
-                    'city': request.query.get('city'),
-                    'country': request.query.get('country')
+            "body": json.dumps({
+                "message": "Test response",
+                "query": {
+                    "city": city,
+                    "country": country
                 }
             })
         }
     except Exception as e:
         return {
-            'statusCode': 500,
-            'headers': {
-                'Content-Type': 'application/json'
+            "statusCode": 500,
+            "headers": {
+                "Content-Type": "application/json"
             },
-            'body': json.dumps({
-                'status': 'error',
-                'message': str(e)
+            "body": json.dumps({
+                "error": str(e)
             })
         } 
