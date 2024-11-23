@@ -94,6 +94,25 @@ To contribute to the project:
 3. Run tests (if available)
 4. Submit a pull request
 
+
+## Running Tests
+
+To run the test suite:
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage report
+pytest --cov=.
+
+# Run with HTML coverage report
+pytest --cov=. --cov-report=html
+
+# Run specific test file
+pytest tests/test_recycling_business
+
+
 ## License
 
 MIT license

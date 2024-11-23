@@ -7,3 +7,5 @@ python-dotenv
 typing
 black
 pylint
+pytest
+pytest-mock

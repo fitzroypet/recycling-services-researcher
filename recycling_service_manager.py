@@ -5,11 +5,20 @@ import json
 from datetime import datetime
 from dotenv import load_dotenv
 from typing import List, Dict, Optional
+import sys
+
+# Add the project root to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from recycling_business_finder.recycling_business_finder import EnhancedRecyclingFinder
 from recycling_data_engineer.reporting_engineer import generate_sql_statements
 
 # Load environment variables
 load_dotenv()
+
+# Check the API key
+api_key = os.getenv('GOOGLE_API_KEY')
+print(f"Using Google API Key: {api_key}")
 
 class RecyclingServiceManager:
     def __init__(self):
@@ -44,6 +53,15 @@ class RecyclingServiceManager:
             
             finder = EnhancedRecyclingFinder(self.api_key)
             results = finder.search_businesses(location)
+            
+            # Debugging: Check the results
+            print(f"Results from API: {results}")
+            
+            if not results:  # Check if results are empty
+                print("No results found from the API.")
+                self.json_data = []  # Initialize as empty list
+                return
+            
             self.json_data = [business.to_dict() for business in results]
             
             # Generate filenames
@@ -53,6 +71,7 @@ class RecyclingServiceManager:
             
         except Exception as e:
             print(f"Error finding recycling services: {str(e)}")
+            self.json_data = []  # Initialize as empty list in case of error
             raise
 
     def generate_sql(self) -> None:
@@ -99,6 +118,11 @@ class RecyclingServiceManager:
             # Step 1: Find recycling services and generate filenames
             self.find_recycling_services(city, country)
             
+            # Check if JSON data is available before processing
+            if not self.json_data:  # Assuming json_data is the variable holding your JSON
+                print("Error processing location: No JSON data available")
+                return  # Exit the function if no data is available
+            
             # Step 2: Save JSON data
             self.save_json_data()
             
@@ -109,7 +133,7 @@ class RecyclingServiceManager:
             self.save_sql_statements()
             
             return self.json_filename, self.sql_filename
-            
+
         except Exception as e:
             print(f"Error processing location: {str(e)}")
             raise

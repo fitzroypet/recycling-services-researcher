@@ -13,6 +13,8 @@ setup(
         "unixodbc>=1.0.0",
         "python-dotenv>=1.0.0",
         "typing>=3.7.4",
+        "pytest>=8.3.3",
+        "pytest-mock>=3.12.0",
     ],
     author="Fitzroy Petgrave",
     author_email="fitzroy@irecycle.world",

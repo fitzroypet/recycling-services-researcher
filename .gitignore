@@ -2,14 +2,14 @@
 venv/
 .env
 *.env
-!.env.example
+.env.example
 
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -21,26 +21,23 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
-.installed.cfg
-*.egg
 
-# IDEs
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Output
+# Output files
 output/
 *.sql
 *.json
-!example.json
 
-# Database
-*.db
-*.sqlite3
-*.db
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Secrets and credentials
 secrets/
@@ -49,4 +46,3 @@ credentials/
 *secret*
 *key*
 !example_key*
-.vercel
