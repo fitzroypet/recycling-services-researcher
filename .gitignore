@@ -50,3 +50,4 @@ credentials/
 *secret*
 *key*
 !example_key*
+.vercel
