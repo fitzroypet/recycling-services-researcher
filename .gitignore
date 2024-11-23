@@ -42,3 +42,11 @@ wheels/
 *.db
 *.sqlite3
 *.db
+
+# Secrets and credentials
+secrets/
+credentials/
+*credential*
+*secret*
+*key*
+!example_key*
