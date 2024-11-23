@@ -1,0 +1,9 @@
+googlemaps
+beautifulsoup4
+requests
+pyodbc
+sqlalchemy
+python-dotenv
+typing
+black
+pylint
