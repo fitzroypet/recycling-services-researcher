@@ -1,6 +1,6 @@
 import pytest
 import os
-from recycling_service_manager import RecyclingServiceManager
+from recycling_services_researcher import RecyclingServiceManager
 from dotenv import load_dotenv
 from unittest.mock import patch
 

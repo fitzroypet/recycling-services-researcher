@@ -132,6 +132,10 @@ class RecyclingServiceManager:
             # Step 4: Save SQL statements
             self.save_sql_statements()
             
+            print(f"\nProcess completed successfully!")
+            print(f"JSON data saved to: {self.json_filename}")
+            print(f"SQL statements saved to: {self.sql_filename}")
+            
             return self.json_filename, self.sql_filename
 
         except Exception as e:

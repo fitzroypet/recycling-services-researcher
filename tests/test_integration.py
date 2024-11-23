@@ -1,5 +1,5 @@
 import pytest
-from recycling_service_manager import RecyclingServiceManager
+from recycling_services_researcher import RecyclingServiceManager
 from recycling_business_finder.recycling_business_finder import EnhancedRecyclingFinder
 
 @pytest.mark.integration

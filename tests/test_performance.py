@@ -1,6 +1,6 @@
 import pytest
 import time
-from recycling_service_manager import RecyclingServiceManager
+from recycling_services_researcher import RecyclingServiceManager
 
 @pytest.mark.performance
 def test_search_performance():

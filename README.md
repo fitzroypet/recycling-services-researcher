@@ -1,78 +1,52 @@
-# iRecycle Digital Research
+# Recycling Services Researcher
 
-A comprehensive tool for finding and analyzing recycling businesses, generating structured data, and creating SQL statements for database integration.
-
-## Project Structure 
-
-bash
-irecycle-digital-research/
-├── output/ # Generated JSON and SQL files
-├── recycling-business-finder/ # Business finding module
-│ ├── init.py
-│ ├── recycling_business_finder.py
-│ └── requirements.txt
-├── recycling-data-engineer/ # Data engineering module
-│ ├── init.py
-│ ├── database_definitions.py
-│ ├── existing_materials.py
-│ ├── reporting_engineer.py
-│ └── requirements.txt
-├── .env # Environment variables (not in git)
-├── .env.example # Example environment variables
-├── .gitignore
-├── README.md
-├── requirements.txt
-├── recycling_service_manager.py
-└── setup.py
-
+A Python application that finds and analyzes recycling services in different cities using Google Places API.
 
 ## Features
 
-- Find recycling businesses using Google Places API
-- Analyze business websites for recycling materials
-- Generate structured JSON data
-- Convert data to SQL statements for database integration
-- Handle business hours, materials, and services
-
-## Prerequisites
-
-- Python 3.8 or higher
-- Google Places API key
-- pip (Python package installer)
-- Virtual environment (recommended)
+- Finds recycling services in specified cities
+- Analyzes business websites for recycling materials
+- Generates detailed JSON reports
+- Creates SQL statements for database storage
+- Supports material type identification
 
 ## Installation
 
 1. Clone the repository:
 
-bash
-git clone https://github.com/fitzroypet/irecycle-digital-research.git
-cd irecycle-digital-research
+```bash
+git clone https://github.com/fitzroypet/recycling-services-researcher.git
+cd recycling-services-researcher
+```
 
 2. Create and activate virtual environment:
 
 bash
 python -m venv venv
-source venv/bin/activate # On Windows: .\venv\Scripts\activate
+source venv/bin/activate 
+On Windows: .\venv\Scripts\activate
 
 3. Install dependencies:
 
 bash
 pip install -r requirements.txt
 
-4. Set up environment variables:
+4. Create a `.env` file with your Google API key:
 
-bash
-cp .env.example .env
-Edit .env and add your Google API key
+plaintext
+GOOGLE_API_KEY=your_api_key_here
+SEARCH_RADIUS=5000
+MAX_RESULTS=100
 
 ## Usage
 
 Run the service manager with a city and country:
 
 bash
-python recycling_service_manager.py "London" "UK"
+python recycling_services_researcher.py "City_Name" "Country"
 
+Example:
+python recycling_services_researcher.py "London" "UK"
 
 The script will:
 1. Search for recycling businesses in the specified location
@@ -80,10 +54,17 @@ The script will:
 3. Create SQL statements for database insertion
 4. Save output files in the `output` directory
 
+## Output
+
+The program generates two files in the `output` directory:
+- A JSON file containing detailed information about recycling services
+- An SQL file with database insertion statements
+
 ## Output Files
 
 - JSON files: `output/<city>_<country>_<timestamp>.json`
 - SQL files: `output/<city>_<country>.sql`
+
 
 ## Development
 
@@ -103,19 +84,13 @@ To run the test suite:
 # Run all tests
 pytest
 
-# Run with coverage report
-pytest --cov=.
-
-# Run with HTML coverage report
-pytest --cov=. --cov-report=html
-
 # Run specific test file
 pytest tests/test_recycling_business
 
 
 ## License
 
-MIT license
+[MIT License](LICENSE)
 
 ## Contact
 
