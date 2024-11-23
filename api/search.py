@@ -1,51 +1,22 @@
 from http.server import BaseHTTPRequestHandler
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlparse
 import json
 import os
 from dotenv import load_dotenv
-from typing import Dict, Any
-
-# Import your existing classes
 import sys
+
+# Add project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from recycling_business_finder.recycling_business_finder import EnhancedRecyclingFinder
 
-def search_recycling_services(city: str, country: str) -> Dict[str, Any]:
-    """Search for recycling services and return results."""
+def handler(request):
+    """Vercel serverless function handler"""
     try:
-        # Get API key from environment
-        api_key = os.getenv('GOOGLE_API_KEY')
-        if not api_key:
-            raise ValueError("GOOGLE_API_KEY not found in environment variables")
-
-        # Initialize finder
-        finder = EnhancedRecyclingFinder(api_key)
+        # Parse query parameters
+        query_params = request.query
+        city = query_params.get('city')
+        country = query_params.get('country')
         
-        # Search for businesses
-        location = f"{city}, {country}"
-        results = finder.search_businesses(location)
-        
-        # Convert results to dict
-        return {
-            "status": "success",
-            "data": [business.to_dict() for business in results],
-            "count": len(results)
-        }
-        
-    except Exception as e:
-        return {
-            "status": "error",
-            "message": str(e)
-        }
-
-def handler(event, context):
-    """Serverless function handler."""
-    try:
-        # Get query parameters
-        params = event.get('queryStringParameters', {})
-        city = params.get('city')
-        country = params.get('country')
-
         if not city or not country:
             return {
                 'statusCode': 400,
@@ -54,22 +25,35 @@ def handler(event, context):
                     'message': 'Missing city or country parameter'
                 })
             }
+        
+        # Get API key from environment
+        api_key = os.getenv('GOOGLE_API_KEY')
+        if not api_key:
+            return {
+                'statusCode': 500,
+                'body': json.dumps({
+                    'status': 'error',
+                    'message': 'API key not configured'
+                })
+            }
 
-        # Search for recycling services
-        results = search_recycling_services(city, country)
-
-        # Return response
+        # Initialize finder and search
+        finder = EnhancedRecyclingFinder(api_key)
+        results = finder.search_businesses(f"{city}, {country}")
+        
+        # Return results
         return {
-            'statusCode': 200 if results['status'] == 'success' else 400,
+            'statusCode': 200,
             'headers': {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type'
+                'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps(results)
+            'body': json.dumps({
+                'status': 'success',
+                'data': [business.to_dict() for business in results]
+            })
         }
-
+        
     except Exception as e:
         return {
             'statusCode': 500,
