@@ -3,12 +3,14 @@ venv/
 .env
 *.env
 .env.example
+*.so
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.egg-info/
 .Python
 build/
 develop-eggs/
@@ -46,3 +48,8 @@ credentials/
 *secret*
 *key*
 !example_key*
+
+# Keep these folders
+!recycling_business_finder/
+!recycling_data_engineer/
+!output/

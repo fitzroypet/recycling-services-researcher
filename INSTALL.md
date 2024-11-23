@@ -11,8 +11,8 @@
 1. Clone the repository: 
 
 bash
-git clone https://github.com/fitzroypet/irecycle-digital-research.git
-cd irecycle-digital-research
+git clone https://github.com/fitzroypet/recycling_services_researcher.git
+cd recycling-services-researcher
 
 
 2. Create and activate a virtual environment (optional but recommended):
@@ -41,7 +41,7 @@ Replace the placeholder values with your actual API keys and credentials
 5. Verify installation:
 
 bash
-python recycling_service_manager.py "London" "UK"
+python recycling_services_researcher.py "London" "UK"
 
 
 ## Troubleshooting
