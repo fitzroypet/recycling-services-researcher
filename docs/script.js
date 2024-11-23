@@ -11,7 +11,6 @@ async function searchLocation() {
     resultsDiv.innerHTML = '<p class="loading">Searching for recycling businesses...</p>';
 
     try {
-        // Use your Vercel deployment URL
         const response = await fetch(
             `https://irecycle-digital-research.vercel.app/api/search?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`
         );
